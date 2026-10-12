@@ -1,0 +1,18 @@
+services:
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: noverse
+      POSTGRES_PASSWORD: noverse
+      POSTGRES_DB: noverse
+    ports:
+      - "127.0.0.1:55439:5432"
+    volumes:
+      - noverse-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U noverse"]
+      interval: 2s
+      timeout: 5s
+      retries: 20
+volumes:
+  noverse-data:
